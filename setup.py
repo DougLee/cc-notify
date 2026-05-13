@@ -62,6 +62,19 @@ def configure_hooks():
     else:
         print("  Notification hook already exists, skipping.")
 
+    # Stop hook: CC finished answering
+    stop_hooks = hooks.get("Stop", [])
+    if not hook_exists(stop_hooks, notify_cmd):
+        stop_hooks.append({
+            "matcher": "",
+            "hooks": [{"type": "command", "command": notify_cmd}]
+        })
+        hooks["Stop"] = stop_hooks
+        print("✓ Stop hook configured")
+        changed = True
+    else:
+        print("  Stop hook already exists, skipping.")
+
     # StopFailure hook: error/crash
     stop_failure_hooks = hooks.get("StopFailure", [])
     if not hook_exists(stop_failure_hooks, notify_cmd):

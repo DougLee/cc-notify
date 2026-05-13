@@ -8,8 +8,9 @@ Claude Code 任务通知 Skill。当 CC 完成任务、需要权限审批、或�
 
 | 触发场景 | Hook 事件 | 通知内容 |
 |---------|----------|---------|
-| CC 完成回答，等待输入 | `Notification` → `idle_prompt` | ✅ 任务完成 |
+| CC 完成回答，等待输入 | `Stop` | ✅ 任务完成 |
 | CC 需要权限审批 | `Notification` → `permission_prompt` | 🔐 需要权限审批 |
+| CC 收到推送通知 | `Notification` → `idle_prompt` | 📬 收到通知 |
 | CC 报错停止 | `StopFailure` | ❌ Claude 遇到错误 |
 
 ## 支持平台
@@ -33,7 +34,7 @@ ln -s /path/to/cc-notify ~/.claude/skills/cc-notify
 python3 ~/.claude/skills/cc-notify/setup.py
 ```
 
-安装脚本会向 `~/.claude/settings.json` 写入 `Notification` 和 `StopFailure` 两个 hook，幂等执行，重复运行不会重复添加。
+安装脚本会向 `~/.claude/settings.json` 写入 `Stop`、`Notification` 和 `StopFailure` 三个 hook，幂等执行，重复运行不会重复添加。
 
 ## 测试
 
