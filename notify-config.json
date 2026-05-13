@@ -1,0 +1,11 @@
+{
+  "sound": {
+    "enabled": true,
+    "file_macos": "",
+    "file_windows": "",
+    "repeat": 1
+  },
+  "desktop_notification": {
+    "enabled": true
+  }
+}
