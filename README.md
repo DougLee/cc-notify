@@ -17,7 +17,7 @@ Claude Code 任务通知 Skill。当 CC 完成任务、需要权限审批、或�
 
 | 平台 | 声音 | 桌面通知 |
 |------|------|---------|
-| macOS | `afplay` | `osascript` |
+| macOS | `afplay` | `terminal-notifier`（推荐）/ `osascript`（备选） |
 | Windows | PowerShell Media.SoundPlayer | BalloonTip |
 | WSL | `powershell.exe` | `powershell.exe` BalloonTip |
 
@@ -124,7 +124,19 @@ cc-notify/
 
 ## macOS 注意事项
 
-首次运行后，需要在 **系统设置 → 通知** 中给 **Script Editor** 开启通知权限，否则桌面通知弹窗不会显示。
+### 桌面通知
+
+**推荐：安装 `terminal-notifier`**
+
+macOS Sequoia 及更新版本中，`osascript` 通知会静默失败且不在系统设置中注册。建议安装 `terminal-notifier`：
+
+```bash
+brew install terminal-notifier
+```
+
+安装后 `notify.py` 会自动优先使用 `terminal-notifier`，无需额外配置。首次发送通知后，在 **系统设置 → 通知** 中找到 **terminal-notifier** 并开启权限即可。
+
+若未安装 `terminal-notifier`，会自动回退到 `osascript`，此时需要在通知设置中给 **Script Editor** 开启权限（仅适用于 macOS Ventura 及更早版本）。
 
 ## 致谢
 
