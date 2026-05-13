@@ -89,10 +89,19 @@ def send_notification(title, message, config):
         return
     p = get_platform()
     if p == "darwin":
-        subprocess.Popen([
-            "osascript", "-e",
-            f'display notification "{message}" with title "{title}"'
-        ])
+        import shutil
+        if shutil.which("terminal-notifier"):
+            subprocess.Popen([
+                "terminal-notifier",
+                "-title", title,
+                "-message", message,
+                "-sound", "default",
+            ])
+        else:
+            subprocess.Popen([
+                "osascript", "-e",
+                f'display notification "{message}" with title "{title}"'
+            ])
     elif p == "windows":
         ps_script = (
             'Add-Type -AssemblyName System.Windows.Forms; '
